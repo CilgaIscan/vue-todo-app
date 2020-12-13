@@ -3,28 +3,26 @@
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-import {ToDo} from '@/todo.model';
+import Navbar from '@/components/navbar/Navbar.vue';
+import TodoAdd from '@/components/todo-add/TodoAdd.vue';
+import TodoItem from '@/components/todo-item/TodoItem.vue';
+import TodoList from '@/components/todo-list/TodoList.vue';
+import Footer from '@/components/footer/Footer.vue';
 
 @Component({
-  components: {},
+  components: {
+    Navbar,
+    TodoAdd,
+    TodoItem,
+    TodoList,
+    Footer,
+  },
 })
 export default class App extends Vue {
-  private todos: ToDo[] = [
-      new ToDo(1, 'To do 1', false),
-      new ToDo(2, 'To do 2', true),
-      new ToDo(3, 'To do 3', false),
-      new ToDo(4, 'To do 4', false),
-  ];
-
   private editing: boolean = false;
+
   private toggleEditing(): void {
     this.editing = !this.editing;
-  }
-  private deleteTodo(todo: ToDo): void {
-    const todoIndex = this.todos.findIndex((item) => item.id === todo.id);
-    if (todoIndex >= 0) {
-      this.todos.splice(todoIndex, 1);
-    }
   }
 }
 </script>

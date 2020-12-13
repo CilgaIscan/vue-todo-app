@@ -1,53 +1,15 @@
 <div id="app">
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img alt="Vuetify Logo" class="shrink mr-2" contain
-               src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" transition="scale-transition"
-               width="40"/>
-        <v-img alt="Vuetify Name" class="shrink mt-1 hidden-sm-and-down" contain min-width="100"
-               src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png" width="100"/>
-      </div>
-      <v-spacer></v-spacer>
-      <v-btn href="#" target="_blank" text>
-        <v-icon>mdi-information</v-icon>
-        <span class="mx-2">About</span>
-      </v-btn>
-      <v-btn href="https://github.com/CilgaIscan/vue-todo-app" target="_blank" text>
-        <v-icon>mdi-github</v-icon>
-        <span class="mx-2">Source Code</span>
-      </v-btn>
-    </v-app-bar>
+  <Navbar></Navbar>
     <v-main>
       <v-container>
         <h1>To Do App</h1>
         <br><br>
-        <v-card elevation="5" outlined class="pa-2 mx-auto" max-width="50%">
-          <v-card-title>Task List</v-card-title>
-          <v-card-text>
-            <v-row v-for="todo in todos" v-bind:key="todo.id">
-              <v-list-item class="todo-item">
-                <v-list-item-action>
-                  <v-checkbox :input-value="todo.isDone" color="primary" v-if="!editing"></v-checkbox>
-                  <v-icon color="primary" v-else>edit</v-icon>
-                </v-list-item-action>
-                <template v-if="!editing">
-                  <v-list-item-content :class="{ 'primary--text': todo.isDone }">
-                    {{ todo.title }}
-                  </v-list-item-content>
-                  <v-list-item-action>
-                    <v-btn color="red lighten-3" text icon v-on:click="deleteTodo(todo)">
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
-                  </v-list-item-action>
-                </template>
-                <v-text-field v-else :value="todo.title" clearable color="primary" text hide-details maxlength="1023"
-                              ref="input" solo v-focus="editing"></v-text-field>
-              </v-list-item>
-            </v-row>
-          </v-card-text>
-        </v-card>
+        <TodoAdd></TodoAdd>
+        <br>
+        <TodoList></TodoList>
       </v-container>
     </v-main>
+    <Footer></Footer>
   </v-app>
 </div>

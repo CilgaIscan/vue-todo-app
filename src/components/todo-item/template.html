@@ -1,0 +1,18 @@
+<v-list-item class="todo-item">
+  <v-list-item-action>
+    <v-checkbox :input-value="todo.isDone" color="primary" v-if="!isInEditMode"></v-checkbox>
+    <v-icon color="primary" v-else>edit</v-icon>
+  </v-list-item-action>
+  <template v-if="!isInEditMode">
+    <v-list-item-content :class="{ 'primary--text': todo.isDone }">
+      {{ todo.description }}
+    </v-list-item-content>
+    <v-list-item-action>
+      <v-btn color="red lighten-3" text icon v-on:click="remove">
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
+    </v-list-item-action>
+  </template>
+  <v-text-field v-else :value="todo.description" clearable color="primary" text hide-details maxlength="1023"
+                ref="input" solo v-focus="isInEditMode"></v-text-field>
+</v-list-item>
