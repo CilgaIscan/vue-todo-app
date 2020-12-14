@@ -23,17 +23,10 @@ export default class TodoList extends Vue {
 
   private async getTodos(): Promise<void> {
     const resp = await this.$apollo.query({query: todoQuery});
-    // tslint:disable-next-line:no-console
-    console.log(resp);
-    // tslint:disable-next-line:no-console
-    console.log(resp.data);
-    // tslint:disable-next-line:no-console
-    console.log(resp.data.todos);
     this.todos = resp.data.todos;
   }
 
   private async refreshTodos() {
-    console.log('Refreshing todos');
     await this.getTodos();
   }
 }
