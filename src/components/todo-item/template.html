@@ -1,6 +1,6 @@
 <v-list-item class="todo-item">
   <v-list-item-action>
-    <v-checkbox :input-value="todo.isDone" color="primary" v-if="!isInEditMode"></v-checkbox>
+    <v-checkbox :input-value="todo.isDone" color="primary" v-if="!isInEditMode" @click="toggleStatus"></v-checkbox>
     <v-icon color="primary" v-else>edit</v-icon>
   </v-list-item-action>
   <template v-if="!isInEditMode">

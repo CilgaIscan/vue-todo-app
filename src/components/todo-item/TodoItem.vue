@@ -4,7 +4,7 @@
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
 import { Todo } from '@/model';
-import {todoDelete, todoQuery} from '@/queries';
+import {todoDelete, todoQuery, todoUpdate} from '@/queries';
 
 @Component({
   name: 'TodoItem',
@@ -21,21 +21,35 @@ export default class TodoItem extends Vue {
       },
       update: (cache, { data: { delete_todos } }) => {
         // Read the data from our cache for this query.
-        // eslint-disable-next-line
-        console.log(delete_todos);
         if (delete_todos.affected_rows) {
           const data = cache.readQuery({
-            query: todoQuery
-          });
-          data.todos = data.todos.filter(todo => todo.id !== this.todo?.id);
-          cache.writeQuery({
             query: todoQuery,
-            data
           });
-          this.$emit('refresh-todos');
+          if (data) {
+            data.todos = data.todos.filter((todo: Todo) => todo.id !== this.todo?.id);
+            cache.writeQuery({
+              query: todoQuery,
+              data,
+            });
+            this.$emit('refresh-todos');
+          }
         }
       },
     });
+  }
+
+  private async toggleStatus() {
+    if (this.todo) {
+      this.todo.isDone = !this.todo.isDone;
+      const resp = await this.$apollo.mutate({
+        mutation: todoUpdate,
+        variables: {
+          todoId: this.todo.id,
+          description: this.todo.description,
+          isDone: this.todo.isDone,
+        },
+      });
+    }
   }
 }
 </script>
