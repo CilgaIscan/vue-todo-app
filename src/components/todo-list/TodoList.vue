@@ -5,6 +5,7 @@
 import {Component, Vue} from 'vue-property-decorator';
 import TodoItem from '@/components/todo-item/TodoItem.vue';
 import {Todo} from '@/model';
+import {todoQuery} from '@/queries';
 
 @Component({
   name: 'TodoList',
@@ -14,20 +15,26 @@ import {Todo} from '@/model';
 })
 export default class TodoList extends Vue {
   private todos: Todo[] = [];
-  public mounted(): void {
-    this.todos = [
-      new Todo(1, 'To do 1', false),
-      new Todo(2, 'To do 2', true),
-      new Todo(3, 'To do 3', false),
-      new Todo(4, 'To do 4', false),
-    ];
+  private editing: boolean = false;
+
+  private async mounted() {
+    await this.getTodos();
   }
 
-  private deleteTodo(todo: Todo): void {
-    const todoIndex = this.todos.findIndex((item) => item.id === todo.id);
-    if (todoIndex >= 0) {
-      this.todos.splice(todoIndex, 1);
-    }
+  private async getTodos(): Promise<void> {
+    const resp = await this.$apollo.query({query: todoQuery});
+    // tslint:disable-next-line:no-console
+    console.log(resp);
+    // tslint:disable-next-line:no-console
+    console.log(resp.data);
+    // tslint:disable-next-line:no-console
+    console.log(resp.data.todos);
+    this.todos = resp.data.todos;
+  }
+
+  private async refreshTodos() {
+    console.log('Refreshing todos');
+    await this.getTodos();
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <v-card-title>Task List</v-card-title>
   <v-card-text>
     <v-row v-for="todo in todos" v-bind:key="todo.id">
-      <TodoItem v-bind:todo="todo" @remove-todo="deleteTodo" v-bind:is-in-edit-mode="editing"></TodoItem>
+      <TodoItem @refresh-todos="refreshTodos" v-bind:todo="todo" v-bind:is-in-edit-mode="editing"></TodoItem>
     </v-row>
   </v-card-text>
 </v-card>
