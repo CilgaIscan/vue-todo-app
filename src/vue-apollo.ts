@@ -4,7 +4,7 @@ import Vue from 'vue';
 
 export const apolloProvider = new VueApollo({
   defaultClient: new ApolloClient({
-    uri: 'http://localhost:8080/v1/graphql',
+    uri: process.env.VUE_APP_DOTY_GRAPHQL_ENDPOINT || 'http://localhost:8080/v1/graphql',
   }),
 });
 
