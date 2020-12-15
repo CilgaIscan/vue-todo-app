@@ -4,6 +4,7 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import {Todo} from '@/model';
+import {todoInsert} from '@/queries';
 
 @Component({
   name: 'TodoAdd',
@@ -15,15 +16,20 @@ export default class TodoAdd extends Vue {
 
   private newTodoDescription: string = '';
 
-  private saveTodo(): void {
+  private async saveTodo(): Promise<void> {
     const description: string = this.newTodoDescription.trim();
     if (!description) {
       alert('Todo description cannot be empty!');
       return;
     }
     const newTodo: Todo = new Todo(Math.random(), description);
-    // this.todos.push(newTodo);
-    this.newTodoDescription = '';
+    await this.$apollo.mutate({
+      mutation: todoInsert,
+      variables: {
+        description,
+      },
+    });
+    window.location.reload();
   }
 }
 </script>
