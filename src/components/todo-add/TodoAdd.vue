@@ -22,7 +22,7 @@ export default class TodoAdd extends Vue {
       alert('Todo description cannot be empty!');
       return;
     }
-    const newTodo: Todo = new Todo(Math.random(), description);
+
     await this.$apollo.mutate({
       mutation: todoInsert,
       variables: {
