@@ -1,7 +1,8 @@
 <v-card elevation="3" outlined class="pa-2 mx-auto" max-width="50%">
   <v-card-text>
     <v-row>
-      <v-text-field clearable label="Create new task" :rules="inputRules" v-model="newTodoDescription" @keyup.enter="saveTodo"></v-text-field>
+      <v-text-field clearable label="Create new task" :rules="inputRules" v-model="newTodoDescription"
+                    @keyup.enter="saveTodo"></v-text-field>
       <v-btn @click="saveTodo" color="indigo white--text">Save</v-btn>
     </v-row>
   </v-card-text>
