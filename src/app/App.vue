@@ -5,7 +5,6 @@
 import {Component, Vue} from 'vue-property-decorator';
 import Navbar from '@/components/navbar/Navbar.vue';
 import TodoAdd from '@/components/todo-add/TodoAdd.vue';
-import TodoItem from '@/components/todo-item/TodoItem.vue';
 import TodoList from '@/components/todo-list/TodoList.vue';
 import Footer from '@/components/footer/Footer.vue';
 
@@ -13,7 +12,6 @@ import Footer from '@/components/footer/Footer.vue';
   components: {
     Navbar,
     TodoAdd,
-    TodoItem,
     TodoList,
     Footer,
   },
