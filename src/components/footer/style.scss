@@ -1,0 +1,8 @@
+.copyleft {
+  display: inline-block;
+  transform: rotateY(180deg);
+}
+
+.copyleft::after {
+  content: "\00a9";
+}
