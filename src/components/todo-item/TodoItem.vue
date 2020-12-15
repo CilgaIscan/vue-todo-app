@@ -2,7 +2,7 @@
 
 <script lang="ts">
 import {Vue, Component, Prop} from 'vue-property-decorator';
-import { Todo } from '@/model';
+import {Todo} from '@/model';
 import {todoDelete, todoQuery, todoUpdate} from '@/queries';
 
 @Component({
@@ -18,17 +18,17 @@ export default class TodoItem extends Vue {
       variables: {
         todoId: this.todo?.id,
       },
-      update: (cache, { data: { delete_todos } }) => {
+      update: (cache, {data: {delete_todos}}) => {
         // Read the data from our cache for this query.
         if (delete_todos.affected_rows) {
-          const data = cache.readQuery({
+          const result: any = cache.readQuery({
             query: todoQuery,
           });
-          if (data) {
-            data.todos = data.todos.filter((todo: Todo) => todo.id !== this.todo?.id);
+          if (result) {
+            result.todos = result.todos.filter((todo: Todo) => todo.id !== this.todo?.id);
             cache.writeQuery({
               query: todoQuery,
-              data,
+              data: result,
             });
             this.$emit('refresh-todos');
           }
