@@ -50,5 +50,28 @@ export default class TodoItem extends Vue {
       });
     }
   }
+
+  private enterEditingMode() {
+    this.isInEditMode = true;
+  }
+
+  private exitEditingMode() {
+    this.isInEditMode = false;
+  }
+
+  private async submitEditingMode(event: any) {
+    if (this.todo) {
+      this.todo.description = event.target.value.trim();
+      const resp = await this.$apollo.mutate({
+        mutation: todoUpdate,
+        variables: {
+          todoId: this.todo.id,
+          description: this.todo.description,
+          isDone: this.todo.isDone,
+        },
+      });
+      this.exitEditingMode();
+    }
+  }
 }
 </script>
